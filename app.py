@@ -60,12 +60,11 @@ def extract_tokens_from_pdf(customer_id):
         (range(7299572, 7438307), "schedules/amendedScheduleWF1.pdf"),
         (range(7438308, 7767508), "schedules/amendedScheduleWF2.pdf"),
         (range(7767517, 8225147), "schedules/amendedScheduleWF3.pdf"),
-        ##
         (range(8225148, 8856984), "schedules/amendedScheduleWF4.pdf"),
         (range(8856985, 9120591), "schedules/amendedScheduleWF5.pdf"),
         (range(9120597, 9444251), "schedules/amendedScheduleWF6.pdf"),
-        (range(9444252, 10023695), "schedules/amendedScheduleWF7.pdf"),
-        (range(10023698, 10037881), "schedules/amendedScheduleWF8.pdf"),
+        # (range(9444252, 10023695), "schedules/amendedScheduleWF7.pdf"),
+        # (range(10023698, 10037881), "schedules/amendedScheduleWF8.pdf"),
     ]
 
     customer_id_num = int(customer_id)
