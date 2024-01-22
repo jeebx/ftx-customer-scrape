@@ -1,10 +1,17 @@
+import os
 from flask import Flask, request, jsonify
 import fitz  # PyMuPDF
 import re
 from decimal import Decimal
 import json
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
+
+env_config = os.getenv("PROD_APP_SETTINGS", "config.DevelopmentConfig")
+app.config.from_object(env_config)
 
 
 def parse_tokens(text_block):
@@ -116,6 +123,11 @@ def extract_tokens_from_pdf(customer_id):
 
     document.close()
     return tokens
+
+
+@app.route("/")
+def index():
+    return "Hello World!"
 
 
 @app.route("/get_customer_tokens", methods=["GET"])

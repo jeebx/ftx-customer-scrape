@@ -1,1 +1,1 @@
-web: gunicorn app:scrape-route
+web: gunicorn app:app
