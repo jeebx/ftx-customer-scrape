@@ -32,38 +32,9 @@ def parse_tokens(text_block):
 
 
 def extract_tokens_from_pdf(customer_id):
-    # Depending on the customerID, check EU first, if no customer is found, check US list based on the customerID, ranges are as follows:
-    # US
-    # F1: 00000000-00286600
-    # F2: 00286601-00453838
-    # F3: 00453848-00601233
-    # F4: 00601235-00819051
-    # F5: 00819052-01051992
-    # F6: 01051994-01271650
-    # F7: 01271651-01541266
-    # F8: 01541277-01767134
-    # F9: 01767141-01977626
-    # F10: 01977627-02206059
-    # F11: 02206060-02498445
-    # F12: 02498449-02760808
-    # F13: 02760809-03026617
-    # F14: 03026626-03304077
-    # F15: 03304080-03598804
-    # F16: 03598805-04215163
-    # F17: 04215165-04644861
-    # F18: 04644862-04988544
-    # F19: 04988556-06299341
-    # F20: 06299344-07086317
-    # F21: 07086319-07187419
-
-    # EU:
-    # 00000009-00286600
-
-    # path: "schedules/amendedScheduleF7.pdf"
-
     # Check if the customerID is in the EU range
     ranges = [
-        (range(9, 286601), "schedules/amendedScheduleEU.pdf"),
+        # (range(9, 286601), "schedules/amendedScheduleEU.pdf"),
         # Define all the US ranges with their respective PDF paths
         (range(0, 286601), "schedules/amendedScheduleF1.pdf"),
         (range(286601, 453839), "schedules/amendedScheduleF2.pdf"),
@@ -86,6 +57,15 @@ def extract_tokens_from_pdf(customer_id):
         (range(4988556, 6299342), "schedules/amendedScheduleF19.pdf"),
         (range(6299344, 7086318), "schedules/amendedScheduleF20.pdf"),
         (range(7076319, 7187420), "schedules/amendedScheduleF21.pdf"),
+        (range(7299572, 7438307), "schedules/amendedScheduleWF1.pdf"),
+        (range(7438308, 7767508), "schedules/amendedScheduleWF2.pdf"),
+        (range(7767517, 8225147), "schedules/amendedScheduleWF3.pdf"),
+        ##
+        (range(8225148, 8856984), "schedules/amendedScheduleWF4.pdf"),
+        (range(8856985, 9120591), "schedules/amendedScheduleWF5.pdf"),
+        (range(9120597, 9444251), "schedules/amendedScheduleWF6.pdf"),
+        (range(9444252, 10023695), "schedules/amendedScheduleWF7.pdf"),
+        (range(10023698, 10037881), "schedules/amendedScheduleWF8.pdf"),
     ]
 
     customer_id_num = int(customer_id)
@@ -138,14 +118,10 @@ def get_customer_tokens():
     # Check if the customer ID was provided
     if not customer_id:
         return jsonify({"error": "Customer ID is required"}), 400
-    obj = {
-        "customer_id": customer_id,
-    }
 
     try:
         # Use the previously defined function to extract tokens
         tokens_json = extract_tokens_from_pdf(customer_id)
-        print("Tokens: ", tokens_json)
         return tokens_json
     except Exception as e:
         # Handle exceptions
