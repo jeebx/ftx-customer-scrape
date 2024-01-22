@@ -102,7 +102,36 @@ def extract_tokens_from_pdf(customer_id):
                     tokens.update(parse_tokens(token_line))
 
     document.close()
-    return tokens
+
+    token_list = []
+    with open("coinPrices.json") as f:
+        coin_prices = json.load(f)
+    for token in tokens:
+        token_obj = {}
+        if token in coin_prices:
+            token_obj = {
+                "name": token,
+                "amount": tokens[token],
+                "price": float(coin_prices[token].replace(",", "")),
+                "value": round(
+                    Decimal(
+                        float(tokens[token])
+                        * float(coin_prices[token].replace(",", ""))
+                    ),
+                    2,
+                ),
+            }
+        else:
+            token_obj = {
+                "name": token,
+                "amount": tokens[token],
+                "price": 0,
+                "value": 0,
+            }
+        token_list.append(token_obj)
+    # sort token list by the obj.value high to low
+    token_list = sorted(token_list, key=lambda k: k["value"], reverse=True)
+    return jsonify(token_list)
 
 
 @app.route("/")
@@ -122,6 +151,7 @@ def get_customer_tokens():
     try:
         # Use the previously defined function to extract tokens
         tokens_json = extract_tokens_from_pdf(customer_id)
+
         return tokens_json
     except Exception as e:
         # Handle exceptions
