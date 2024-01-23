@@ -16,7 +16,7 @@ app.config.from_object(env_config)
 
 def parse_tokens(text_block):
     # Find all token-value pairs
-    pattern = re.compile(r"([A-Z0-9-]+)\[([\d.]+)\]")
+    pattern = re.compile(r"([A-Z0-9-]+)\[(-?[\d.]+)\]")
     matches = pattern.findall(text_block)
 
     tokens = {}
